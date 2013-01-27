@@ -23,3 +23,12 @@ Usage::
     >>> datemath("NOW/MONTH - 7DAYS")
     datetime.datetime(2012, 12, 25, 0, 0, 0)
 
+
+References
+----------
+
+* `Solr Date Format`_ used as inspiration
+* `PLY` used for the lexer and parser
+
+.. _Solr Date Format: http://lucidworks.lucidimagination.com/display/lweug/Solr+Date+Format
+.. _PLY: http://www.dabeaz.com/ply/
