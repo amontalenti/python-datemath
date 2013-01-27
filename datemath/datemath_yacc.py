@@ -36,7 +36,7 @@ class Units:
 import datetime
 
 def t_DATE(t):
-    r'([0-9]*)(YEAR|MONTH|DAY|HOUR|MINUTE|SECOND|MILLI|MILLISECOND)(S)?'
+    r'([0-9]*)(YEAR|MONTH|DAY|HOUR|MINUTE|MILLISECOND|MILLI|SECOND)(S)?'
     # known issue: if doing date math with months or years, we're facing bugs
     # related to end-of-month (e.g. 3/31/2013 - 1MONTH does not equal 1/28/2013)
     # and related to leap year (e.g. 2013/1/1 - 1YEAR does not equal 1/1/2012)
