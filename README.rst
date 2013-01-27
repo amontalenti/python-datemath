@@ -13,9 +13,8 @@ checking and the beginnings of a REPL for testing. It also means that it uses a
 LALR table-based parser which is auto-generated in memory from some definitions
 in ``datemath_yacc.py``. 
 
-Usage:
+Usage::
 
-    ```python
     >>> from datemath import datemath
     >>> datemath("NOW")
     datetime.datetime(2012, 2, 26, 21, 56, 52, 489700)
@@ -23,7 +22,6 @@ Usage:
     datetime.datetime(2012, 1, 26, 21, 57, 41, 142164)
     >>> datemath("NOW/MONTH - 7DAYS")
     datetime.datetime(2012, 12, 25, 0, 0, 0)
-    ```
 
 References
 ----------
