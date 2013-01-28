@@ -52,7 +52,7 @@ def t_DATE(t):
         if unit in ("millis", "milliseconds"):
             unit = "microseconds"
             value = 1000 * value
-        t.value = relativedelta.relativedelta(**{unit: int(value)})
+        t.value = relativedelta.relativedelta(**{unit: value})
     return t
 
 import datetime
