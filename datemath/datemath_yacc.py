@@ -168,7 +168,7 @@ def p_error(t):
         print("Syntax error at '%s'" % t.value)
 
 import ply.yacc as yacc
-yacc.yacc(write_tables=0)
+yacc.yacc(write_tables=0, debug=0)
 
 if __name__ == "__main__":
     while 1:
