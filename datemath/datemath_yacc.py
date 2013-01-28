@@ -30,32 +30,29 @@ class Units:
     MINUTE = 60
     HOUR = 60*MINUTE
     DAY = 24*HOUR
-    MONTH = 30*DAY
-    YEAR = 365*DAY
 
 import datetime
+from dateutil import relativedelta
 
 def t_DATE(t):
     r'([0-9]*)(YEAR|MONTH|DAY|HOUR|MINUTE|MILLISECOND|MILLI|SECOND)(S)?'
-    # known issue: if doing date math with months or years, we're facing bugs
-    # related to end-of-month (e.g. 3/31/2013 - 1MONTH does not equal 1/28/2013)
-    # and related to leap year (e.g. 2013/1/1 - 1YEAR does not equal 1/1/2012)
-    # these issues are handled in Java by the "Calendar" class, which is able to
-    # handle these edge cases by using the "numdays minimum" algorithm. That is,
-    # given two operands, dt1 and dt2, you calculate:
-    # >>> daymin = min(numdays(dt1.month), numdays(dt2.month))
-    # and then say, if dt2.day > daymin then newdt.day = daymin
-    # an interesting truth revealed by this math --
-    #      3/31/2013 - 1MONTH - 1MONTH = 1/28/2013
-    # yet, 3/31/2013 - 2MONTH          = 1/31/2013
-    # kind of mind-bending, eh?
     regex = t.lexer.lexmatch.groups()
     if regex[1] == "":
-        # round to the specified date
+        # round to the specified date; this will be handled 
+        # in the binop expression
         t.value = regex[2]
     else:
-        # get the date value for math purposes
-        t.value = datetime.timedelta(seconds=int(regex[1]) * getattr(Units, regex[2]))
+        # create a delta object for doing date math
+        value = regex[1]
+        value = int(value)
+        unit = regex[2]
+        unit = unit.lower()
+        # pluralize if necessary
+        unit = unit + "s" if not unit.endswith("s") else unit
+        if unit in ("millis", "milliseconds"):
+            unit = "microseconds"
+            value = 1000 * value
+        t.value = relativedelta.relativedelta(**{unit: int(value)})
     return t
 
 import datetime
